@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package user.v1;
+
+// User service definition.
+service UserService {
+  // Unary RPC to create a new user.
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+  string avatar = 3;
+}
+
+message CreateUserResponse {
+  string response = 1;
+}
