@@ -3,18 +3,18 @@ export class User {
   email: string;
   password: string;
   avatar?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string;
 
   constructor(
     id: number,
     email: string,
     password: string,
     avatar: string | undefined,
-    createdAt: Date,
-    updatedAt: Date,
-    deletedAt: Date | undefined,
+    createdAt: string,
+    updatedAt: string,
+    deletedAt: string | undefined,
   ) {
     this.id = id;
     this.email = email;
@@ -23,5 +23,25 @@ export class User {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.deletedAt = deletedAt;
+  }
+
+  static create(
+    id: number,
+    email: string,
+    password: string,
+    avatar: string | undefined,
+    createdAt: string,
+    updatedAt: string,
+    deletedAt: string | undefined,
+  ): User {
+    return new User(
+      id,
+      email,
+      password,
+      avatar,
+      createdAt,
+      updatedAt,
+      deletedAt,
+    );
   }
 }

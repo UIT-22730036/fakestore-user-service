@@ -6,6 +6,8 @@ package user.v1;
 service UserService {
   // Unary RPC to create a new user.
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  // Unary RPC to get all users.
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 }
 
 message CreateUserRequest {
@@ -16,4 +18,20 @@ message CreateUserRequest {
 
 message CreateUserResponse {
   string response = 1;
+}
+
+message User {
+  int64 id = 1;
+  string email = 2;
+  string password = 3;
+  optional string avatar = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  optional string deleted_at = 7;
+}
+
+message GetUsersRequest {}
+
+message GetUsersResponse {
+  repeated User users = 1;
 }

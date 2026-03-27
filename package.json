@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "proto:gen": "buf generate --path src --output . --template buf.gen.yaml",
+    "gen:proto": "buf generate --path src --output . --template buf.gen.yaml",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:run": "npx typeorm migration:run -d src/infrastructure/database/data-source.ts",
     "migration:revert": "npx typeorm migration:revert -d src/infrastructure/database/data-source.ts",

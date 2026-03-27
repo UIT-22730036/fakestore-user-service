@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -10,7 +12,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: 'localhost:50051',
+        url: process.env.GRPC_URL,
         package: ['grpc.health.v1', 'user.v1'],
         protoPath: [
           join(__dirname, 'infrastructure/grpc/protobuf/health-check.proto'),
@@ -21,6 +23,6 @@ async function bootstrap() {
   );
 
   await app.listen();
-  Logger.log('Server is listening on localhost:50051');
+  Logger.log(`Server is listening on ${process.env.GRPC_URL}`);
 }
 bootstrap();

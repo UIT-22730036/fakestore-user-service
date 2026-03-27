@@ -3,16 +3,19 @@ import { Observable } from 'rxjs';
 import {
   CreateUserRequest,
   CreateUserResponse,
+  GetUsersResponse,
   UserServiceController,
   UserServiceControllerMethods,
 } from 'src/infrastructure/grpc/protobuf/user';
-import { type ICreateUserUseCase } from 'src/usecase/user/create-user.usecase';
+import type { ICreateUserUseCase, IGetUsersUseCase } from 'src/usecase/user';
 
 @UserServiceControllerMethods()
 export class UserController implements UserServiceController {
   constructor(
     @Inject('CREATE_USER_USE_CASE')
     private readonly createUserUseCase: ICreateUserUseCase,
+    @Inject('GET_USERS_USE_CASE')
+    private readonly getUsersUseCase: IGetUsersUseCase,
   ) {}
   createUser(
     request: CreateUserRequest,
@@ -30,6 +33,18 @@ export class UserController implements UserServiceController {
       .catch((error) => {
         console.error('Error creating user:', error);
         return { response: 'error' };
+      });
+  }
+
+  getUsers(): Promise<GetUsersResponse> {
+    return this.getUsersUseCase
+      .execute()
+      .then((users) => {
+        return { users };
+      })
+      .catch((error) => {
+        console.error('Error getting users:', error);
+        return { users: [] };
       });
   }
 }
